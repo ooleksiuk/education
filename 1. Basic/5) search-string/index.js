@@ -5,11 +5,7 @@ function searchString(obj) {
       qs.push(`${key}=${obj[key]}`);
     }
   }
-  if (!qs.length) {
-    return '';
-  } else {
-    return '?' + qs.join('&');
-  }
+  return !qs.length ? '' : '?' + qs.join('&');
 }
 
 window.searchString = searchString;
