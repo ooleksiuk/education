@@ -1,5 +1,10 @@
 function sumCheck(a, b) {
-  // Напиши свой код здесь
+  const isNumber = (argument) => {
+    if (typeof argument !== 'number') throw new Error('Wrong arguments type!');
+    else return true;
+  };
+
+  return isNumber(a) && isNumber(b) && a + b;
 }
 
 window.sumCheck = sumCheck;
