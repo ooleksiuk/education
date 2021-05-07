@@ -1,19 +1,17 @@
 function isEqual(obj1, obj2) {
-  // Тип сравниваемых объектов
-  var type = objectTypeCheck(obj1, obj2);
-  if (!type) return false;
+  // Type of compared objects
+  const type = objectTypeCheck(obj1, obj2);
+  if (!type && !isObject(type)) return false;
 
-  if (!isObject(type)) return false;
-
-  // Сравниваем количество свойств в объекте
-  var obj1_length = Object.keys(obj1).length;
-  var obj2_length = Object.keys(obj2).length;
+  // Compare equality of properties quantity
+  const obj1_length = Object.keys(obj1).length;
+  const obj2_length = Object.keys(obj2).length;
   if (obj1_length !== obj2_length) return false;
 
-  // Сравниваем свойства (проверяя, есть ли свойство с таким ключем в обоих объектах)
-  for (var key in obj1) {
+  // Compare properties (check whether there is a property with the given key in both objects)
+  for (let key in obj1) {
     if (obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key)) {
-      if (comparePropValues(obj1[key], obj2[key]) === false) return false;
+      if (!isPropValuesEqual(obj1[key], obj2[key])) return false;
     } else {
       return false;
     }
@@ -22,24 +20,20 @@ function isEqual(obj1, obj2) {
   return true;
 }
 
-// Проверяем равенство типов объектов
+// Check object equality
 function objectTypeCheck(obj1, obj2) {
-  let type = Object.prototype.toString.call(obj1);
+  const type = Object.prototype.toString.call(obj1);
   return type === Object.prototype.toString.call(obj2) ? type : false;
 }
 
-// Проверяем является ли тип объектом
+// Check whether it's an object
 function isObject(type) {
-  return type === '[object Object]' ? true : false;
+  return type === '[object Object]';
 }
 
-// Сравниваем свойства на равенство
-function comparePropValues(item1, item2) {
-  var itemType1 = Object.prototype.toString.call(item1);
-  // сравниваем типы
-  if (itemType1 !== Object.prototype.toString.call(item2)) return false;
-  // сравниваем значения
-  if (item1 !== item2) return false;
+// Check values equality
+function isPropValuesEqual(item1, item2) {
+  return item1 === item2;
 }
 
 window.isEqual = isEqual;
