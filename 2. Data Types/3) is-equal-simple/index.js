@@ -1,7 +1,6 @@
 function isEqual(obj1, obj2) {
-  // Type of compared objects
-  const type = objectTypeCheck(obj1, obj2);
-  if (!type && !isObject(type)) return false;
+  if (isNull(obj1, obj2)) return false;
+  if (!areBothObjects(obj1, obj2)) return false;
 
   // Compare equality of properties quantity
   const obj1_length = Object.keys(obj1).length;
@@ -10,7 +9,7 @@ function isEqual(obj1, obj2) {
 
   // Compare properties (check whether there is a property with the given key in both objects)
   for (let key in obj1) {
-    if (obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key)) {
+    if (obj2.hasOwnProperty(key)) {
       if (!isPropValuesEqual(obj1[key], obj2[key])) return false;
     } else {
       return false;
@@ -20,15 +19,12 @@ function isEqual(obj1, obj2) {
   return true;
 }
 
-// Check object equality
-function objectTypeCheck(obj1, obj2) {
-  const type = Object.prototype.toString.call(obj1);
-  return type === Object.prototype.toString.call(obj2) ? type : false;
+function areBothObjects(obj1, obj2) {
+  return typeof obj1 === 'object' && typeof obj2 === 'object';
 }
 
-// Check whether it's an object
-function isObject(type) {
-  return type === '[object Object]';
+function isNull(obj1, obj2) {
+  return obj1 === null || obj2 === null;
 }
 
 // Check values equality
