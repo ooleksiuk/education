@@ -1,15 +1,14 @@
 // 'queryToObject(""?test=123"") => { test: 123 }'
 
-function queryToObject(queryString) {
-  let obj = {};
-  let query = queryString;
+function queryToObject(query) {
+  const obj = {};
   if (query === '' || query === '?') return obj;
 
   query
     .slice(1)
     .split('&')
     .forEach((e) => {
-      let [key, value] = e.split('=');
+      const [key, value] = e.split('=');
       obj[key] = stringToType(value);
     });
 
