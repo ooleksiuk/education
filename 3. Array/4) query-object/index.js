@@ -1,17 +1,19 @@
-function queryToObject(query) {
+// 'queryToObject(""?test=123"") => { test: 123 }'
+
+function queryToObject(queryString) {
   let obj = {};
+  let query = queryString;
   if (query === '' || query === '?') return obj;
 
   query
     .slice(1)
     .split('&')
-    .forEach((e) => addProp(e, obj));
-  return obj;
-}
+    .forEach((e) => {
+      let [key, value] = e.split('=');
+      obj[key] = stringToType(value);
+    });
 
-function addProp(prop, obj) {
-  const [key, value] = prop.split('=');
-  obj[key] = stringToType(value);
+  return obj;
 }
 
 function stringToType(str) {
