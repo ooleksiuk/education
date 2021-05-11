@@ -1,13 +1,13 @@
 function findPair(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = i + 1; j < arr.length; j++) {
-      if (arr[i] == arr[j]) {
-        return arr[i];
-      }
-    }
-  }
+  const duplicateVal = arr.find((item, index, arr) => {
+    return thereIsCouple(item, index, arr);
+  });
 
-  return null;
+  return duplicateVal || null;
+}
+
+function thereIsCouple(item, from, arr) {
+  return arr.includes(item, ++from);
 }
 
 window.findPair = findPair;
